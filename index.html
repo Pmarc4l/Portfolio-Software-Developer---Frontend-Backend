@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Piero Infante — Junior Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f3ee;
+      --ink: #1a1a18;
+      --muted: #7a7870;
+      --accent: #3d5a3e;
+      --line: #d8d4cb;
+      --card: #efede8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+      padding-top: 70px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 4rem 3rem 4rem 3rem;
+    }
+
+    .hero-tag {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-bio {
+      color: var(--muted);
+      max-width: 38ch;
+      font-size: 12px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      border: 1px solid var(--ink);
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background .25s, color .25s;
+      width: fit-content;
+    }
+    .hero-cta:hover { background: var(--ink); color: var(--bg); }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--card);
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      opacity: 0.9;
+      filter: grayscale(15%);
+    }
+    .hero-overlay {
+      position: absolute;
+      bottom: 2rem; right: 2rem;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 1rem 1.4rem;
+    }
+    .hero-overlay p {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-overlay span {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--ink);
+      margin-top: 0.2rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT GRID ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text { color: var(--muted); line-height: 1.9; font-size: 13px; }
+    .about-text p + p { margin-top: 1rem; }
+    .langs { margin-top: 2rem; }
+    .lang-item {
+      display: flex; justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+    }
+    .lang-level { color: var(--accent); }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .skill-item {
+      background: var(--bg);
+      padding: 1.6rem 1.4rem;
+      transition: background .2s;
+    }
+    .skill-item:hover { background: var(--card); }
+    .skill-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0.4rem;
+    }
+    .skill-tag {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--line);
+      transition: background .2s;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--line); }
+    .exp-date { color: var(--muted); font-size: 11px; padding-top: 0.2rem; }
+    .exp-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .exp-company {
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+    .exp-desc { color: var(--muted); font-size: 12px; line-height: 1.8; max-width: 55ch; }
+
+    /* ── EDUCATION ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 1.8rem;
+    }
+    .edu-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+    .edu-school { color: var(--muted); font-size: 11px; }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 1px; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 12px;
+      transition: background .2s, border-color .2s;
+      margin-bottom: 0.5rem;
+    }
+    .contact-link:hover { background: var(--ink); color: var(--bg); }
+    .contact-link:hover .contact-icon { color: var(--bg); }
+    .contact-icon { font-size: 1rem; color: var(--accent); }
+    .contact-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; }
+    .contact-value { font-family: 'Cormorant Garamond', serif; font-size: 1rem; }
+
+    .contact-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+      padding-top: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* ── FADE IN ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.55s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 55vw; }
+      .hero-left { padding: 2.5rem 1.5rem; }
+      section { padding: 3.5rem 1.5rem; }
+      .about-grid, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Piero Infante</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <p class="hero-tag fade-in">Available for opportunities · Italy</p>
+      <h1 class="hero-name fade-in delay-1">Piero<br>Infante</h1>
+      <p class="hero-bio fade-in delay-2">Junior Developer with a passion for continuous growth. Building clean backends, intuitive frontends, and solving real problems with code.</p>
+      <a href="mailto:pieroinfante8@gmail.com" class="hero-cta fade-in delay-3">
+        <span>Get in touch</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-right fade-in delay-1">
+      <!-- Replace src with your actual photo URL or base64 if needed -->
+      <img src="foto.PNG">" alt="Piero Infante">
+      <div class="hero-overlay">
+        <p>Role</p>
+        <span>Junior Developer</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">01 — About</p>
+    <div class="about-grid">
+      <div>
+        <h2 class="section-title">Who I am</h2>
+        <div class="about-text">
+          <p>I'm a motivated junior developer based in Bagnolo in Piano (RE), Italy. I combine technical training in web development and data analysis with hands-on experience in IT support and customer service.</p>
+          <p>Proactive, quick to learn, and passionate about building real products that make a difference. I thrive in collaborative environments and love taking on new challenges.</p>
+          <p>📧 pieroinfante8@gmail.com<br>📞 +39 351 425-3803</p>
+        </div>
+      </div>
+      <div>
+        <div class="langs">
+          <p class="section-label" style="margin-bottom:1rem;">Languages</p>
+          <div class="lang-item"><span>Spanish</span><span class="lang-level">Native</span></div>
+          <div class="lang-item"><span>English</span><span class="lang-level">C1</span></div>
+          <div class="lang-item"><span>Italian</span><span class="lang-level">C1</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">02 — Skills</p>
+    <h2 class="section-title">What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <p class="skill-name">HTML & CSS</p>
+        <p class="skill-tag">Frontend</p>
+      </div>
+      <div class="skill-item">
+        <p class="skill-name">JavaScript</p>
+        <p class="skill-tag">Frontend / Backend</p>
+      </div>
+      <div class="skill-item">
+        <p class="skill-name">React</p>
+        <p class="skill-tag">UI Framework</p>
+      </div>
+      <div class="skill-item">
+        <p class="skill-name">Node.js</p>
+        <p class="skill-tag">Backend</p>
+      </div>
+      <div class="skill-item">
+        <p class="skill-name">Python</p>
+        <p class="skill-tag">Backend / Data</p>
+      </div>
+      <div class="skill-item">
+        <p class="skill-name">SQL & APIs</p>
+        <p class="skill-tag">Data / Integration</p>
+      </div>
+      <div class="skill-item">
+        <p class="skill-name">Zendesk / ServiceNow</p>
+        <p class="skill-tag">IT Support</p>
+      </div>
+      <div class="skill-item">
+        <p class="skill-name">Active Directory</p>
+        <p class="skill-tag">Systems</p>
+      </div>
+      <div class="skill-item">
+        <p class="skill-name">AI Tools</p>
+        <p class="skill-tag">Development</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label">03 — Experience</p>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-date">Apr 2026 — May 2026</div>
+        <div>
+          <p class="exp-role">Software Developer Backend</p>
+          <p class="exp-company">IFOA — Training Institute of Corporate Professionals · Italy</p>
+          <p class="exp-desc">Contributed to the development of Harmony, a platform for discovering nearby artists, concerts, and events. Responsible for backend development, database management, Ticketmaster API integration, and deployment on Render to support real-time event data and application functionality.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Sep 2025 — Dec 2025</div>
+        <div>
+          <p class="exp-role">Help Desk Junior</p>
+          <p class="exp-company">Polo Digitale · Italy</p>
+          <p class="exp-desc">User support for hardware, software and company tools. Ticket management and monitoring. Clear communication and service-oriented approach.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Jul 2024 — Apr 2025</div>
+        <div>
+          <p class="exp-role">Help Desk IT</p>
+          <p class="exp-company">Grupo Diusframi</p>
+          <p class="exp-desc">Proficient in Zendesk, ServiceNow, Active Directory, and remote support platforms. Focused on continuous improvement, meeting SLAs, and ensuring customer satisfaction.</p>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Apr 2021 — Jan 2024</div>
+        <div>
+          <p class="exp-role">Bilingual Customer Service Representative</p>
+          <p class="exp-company">Teleperformance</p>
+          <p class="exp-desc">Support for daily processes and operations. Provided efficient and empathetic customer service in Spanish and Italian to build customer loyalty.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label">04 — Education</p>
+    <h2 class="section-title">Training</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <p class="edu-title">Software Developer con Strumenti AI</p>
+        <p class="edu-school">IFOA · Italy<br>Frontend (JS, React) · Backend & Data Analysis (Python)</p>
+      </div>
+      <div class="edu-card">
+        <p class="edu-title">FP — DAW (Web Application Development)</p>
+        <p class="edu-school">Curso MEDAC · Albala, Madrid</p>
+      </div>
+      <div class="edu-card">
+        <p class="edu-title">Técnico en Marketing</p>
+        <p class="edu-school">ISIL · San Isidro, Peru</p>
+      </div>
+      <div class="edu-card">
+        <p class="edu-title">High School Diploma</p>
+        <p class="edu-school">César Vallejo · 2015</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">05 — Contact</p>
+    <h2 class="section-title">Let's connect</h2>
+    <div class="contact-grid">
+      <div class="contact-links">
+        <a href="mailto:pieroinfante8@gmail.com" class="contact-link">
+          <span class="contact-icon">✉</span>
+          <div>
+            <p class="contact-label">Email</p>
+            <p class="contact-value">pieroinfante8@gmail.com</p>
+          </div>
+        </a>
+        <a href="tel:+393514253803" class="contact-link">
+          <span class="contact-icon">☏</span>
+          <div>
+            <p class="contact-label">Phone</p>
+            <p class="contact-value">+39 351 425-3803</p>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/piero-infante-421699184" target="_blank" class="contact-link">
+          <span class="contact-icon">in</span>
+          <div>
+            <p class="contact-label">LinkedIn</p>
+            <p class="contact-value">piero-infante</p>
+          </div>
+        </a>
+        <a href="https://github.com/" target="_blank" class="contact-link">
+          <span class="contact-icon">⌥</span>
+          <div>
+            <p class="contact-label">GitHub</p>
+            <p class="contact-value">https://github.com/Pmarc4l</p>
+          </div>
+        </a>
+      </div>
+      <div class="contact-note">
+        <p>I'm currently open to junior developer roles — backend, frontend, or full-stack.</p>
+        <br>
+        <p>Based in Bagnolo in Piano (RE), Italy.<br>Fluent in Spanish, English, and Italian.</p>
+        <br>
+        <p style="color: var(--accent);">→ Let's build something together.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Piero Infante</span>
+    <span>Junior Developer · Bagnolo in Piano, Italy</span>
+  </footer>
+
+  <script>
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.style.opacity = '1';
+          el.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
