@@ -573,7 +573,9 @@ footer {
   .hero-left { padding: 2rem 1.2rem 2.5rem; }
   .hero-name { font-size: clamp(2.8rem, 12vw, 3.6rem); }
   .hero-bio { font-size: 12px; max-width: 100%; }
-  .hero-overlay { bottom: -2rem; right: 0.8rem; padding: 0.7rem 1rem;}
+  .hero-overlay { bottom: 0.5rem; right: 0.5rem; padding: 0.5rem 0.8rem;}
+  .hero-overlay p { font-size: 8px;}
+  .hero-overlay span { font-size: 0.8rem;}
   section { padding: 3.5rem 1.2rem; }
   section::before { font-size: 9rem; top: 0; right: 0.5rem; }
   .section-title { font-size: clamp(1.8rem, 7vw, 2.4rem); margin-bottom: 2rem; }
